@@ -6,6 +6,7 @@ var app = express();
 const Mail = require('./routue/mailRoute');
 const User = require('./routue/userRoute');
 const Employment = require('./routue/employmentRoute');
+const Contract = require('./routue/contractRoute');
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -18,6 +19,7 @@ app.get('/', function (req, res) {
 app.use('/mail', Mail)
 app.use('/user', User)
 app.use('/employment', Employment)
+app.use('/contract', Contract)
 
 mongoose.connect("mongodb+srv://mockproject:fpt@cluster0.rrqt6.mongodb.net/test", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
