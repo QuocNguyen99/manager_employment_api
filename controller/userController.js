@@ -55,6 +55,7 @@ exports.login = async (req, res) => {
     return res.status(500).json({
         success: true,
         message: 'Success',
+        isAdmin: result.roleAdmin
     });
 
 }

@@ -57,13 +57,3 @@ exports.getListContract = async (req, res) => {
             });
         });
 }
-
-exports.searchContract = async (req, res) => {
-    let { _id, } = req.body;
-    let query = {};
-    if (customer_id != null) query.customer_id = customer_id;
-    if (customer_name != null) query.customer_name = customer_name;
-    if (customer_email != null) query.customer_email = customer_email;
-    if (no_of_items_purchased != null) query.no_of_items_purchased = no_of_items_purchased;
-    let result = await Customer.find(query);
-}
