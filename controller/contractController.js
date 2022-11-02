@@ -1,14 +1,16 @@
+const { isValidObjectId } = require('mongoose');
 var { Contract } = require('../model/contractModel');
+var ObjectId = require('mongodb').ObjectId;
 
 // create new account
 exports.creatContract = async (req, res) => {
 
-    let contractInDB = await Contract.findOne({ idEmployment: req.body.idEmployment })
+    let contractInDB = await Contract.findOne({ employmentId: req.body.employmentId })
     if (contractInDB) return res.status(500).json({
         success: false,
         message: 'Contract already exists',
     });
-
+    console.log(req.body.employmentId);
     const contract = new Contract({
         employmentId: req.body.employmentId,
         createAt: req.body.createAt,
@@ -46,6 +48,45 @@ exports.getListContract = async (req, res) => {
             success: true,
             message: 'New user created successfully',
             Contracts: list,
+        });
+    })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).json({
+                success: false,
+                message: 'Server error. Please try again.',
+                error: error.message,
+            });
+        });
+}
+
+exports.deleteContract = async (req, res) => {
+    console.log(req.body.idContract)
+    var removeContract = Contract.findByIdAndRemove(req.body.idContract)
+
+    return removeContract.then(() => {
+        return res.status(200).json({
+            success: true,
+            message: 'Remove contract successfully',
+        });
+    })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).json({
+                success: false,
+                message: 'Server error. Please try again.',
+                error: error.message,
+            });
+        });
+}
+
+exports.editContract = async (req, res) => {
+    var editContract = Contract.findByIdAndUpdate({ _id: req.body.idContract }, req.body.newContract, { new: true })
+
+    return editContract.then(() => {
+        return res.status(200).json({
+            success: true,
+            message: 'Edit contract successfully',
         });
     })
         .catch((error) => {
