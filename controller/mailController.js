@@ -1,7 +1,12 @@
 var nodemailer = require('nodemailer');
+var fs = require('fs')
+var path = require('path');
+const { User } = require('../model/userModel');
+const { Contract } = require('../model/contractModel');
+var filePath = path.join("./", 'TimeKeeping.json');
 
-exports.sendMail = async (req, res) => {
-    console.log("Test");
+
+var sendMail = async (title, subject, content, mailTo) => {
     var transporter = nodemailer.createTransport({ // config mail server
         host: 'smtp.gmail.com',
         port: 465,
@@ -28,10 +33,10 @@ exports.sendMail = async (req, res) => {
 
 
     var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
-        from: 'NQH-Test nodemailer',
-        to: "huynhquocnguyen11@gmail.com",
-        subject: 'Test Nodemailer',
-        text: 'Your text is here',//Thường thi mình không dùng cái này thay vào đó mình sử dụng html để dễ edit hơn
+        from: title,
+        to: mailTo,
+        subject: subject,
+        text: content,//Thường thi mình không dùng cái này thay vào đó mình sử dụng html để dễ edit hơn
         html: content //Nội dung html mình đã tạo trên kia :))
     }
 
@@ -42,4 +47,30 @@ exports.sendMail = async (req, res) => {
             console.log('Message sent: ' + info.response);
         }
     });
+}
+
+exports.sendReportTimekeeping = async (req, res) => {
+    fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
+        if (!err) {
+            var list = Contract.find({})
+
+            list.then((list) => {
+                list.forEach(element => {
+                    var user = User.findById(element.employmentId)
+                });
+            })
+                .catch((error) => {
+                    console.log(error);
+                    res.status(500).json({
+                        success: false,
+                        message: 'Server error. Please try again.',
+                        error: error.message,
+                    });
+                });
+        } else {
+            console.log("NOT OK")
+            return JSON.parse([])
+        }
+    });
+
 }
