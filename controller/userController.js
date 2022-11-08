@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
     return res.status(200).json({
         success: true,
         message: 'Success',
-        isAdmin: result.roleAdmin
+        isAdmin: userInDB.roleAdmin
     });
 
 }

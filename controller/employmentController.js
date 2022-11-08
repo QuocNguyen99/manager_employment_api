@@ -78,11 +78,12 @@ exports.getEmploymentTimeKeeping = (req, res) => {
             })
         }
 
-        var data = timeKeepingList.find(item => item.idEmployment == req.body._id)
-        if (data) {
+        // var data = timeKeepingList.find(item => item.idEmployment == req.body._id)
+        if (true) {
             return res.status(200).json({
                 success: true,
-                message: data,
+                message: "get success",
+                list: timeKeepingList
             })
         } else {
             return res.status(500).json({
