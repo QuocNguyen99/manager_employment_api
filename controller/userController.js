@@ -50,12 +50,14 @@ exports.login = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: 'Wrong password',
+
         });
     }
     return res.status(200).json({
         success: true,
         message: 'Success',
-        isAdmin: userInDB.roleAdmin
+        isAdmin: userInDB.roleAdmin,
+        username: userInDB.username
     });
 
 }
