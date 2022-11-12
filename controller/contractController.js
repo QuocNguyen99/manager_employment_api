@@ -1,5 +1,6 @@
 const { isValidObjectId } = require('mongoose');
 var { Contract } = require('../model/contractModel');
+const { Employment } = require('../model/employmentModel');
 var ObjectId = require('mongodb').ObjectId;
 
 // create new account
@@ -69,12 +70,23 @@ exports.deleteContract = async (req, res) => {
             error: error.message,
         });
     var removeContract = Contract.findByIdAndRemove(req.body.idContract)
+    var removeEmployment = Employment.findByIdAndRemove(req.body.idEmployment)
 
     return removeContract.then(() => {
-        return res.status(200).json({
-            success: true,
-            message: 'Remove contract successfully',
-        });
+        removeEmployment.then(() => {
+            return res.status(200).json({
+                success: true,
+                message: 'Remove contract successfully',
+            });
+        })
+            .catch((error) => {
+                console.log(error);
+                res.status(500).json({
+                    success: false,
+                    message: 'Server error. Please try again.',
+                    error: error.message,
+                })
+            });
     })
         .catch((error) => {
             console.log(error);
