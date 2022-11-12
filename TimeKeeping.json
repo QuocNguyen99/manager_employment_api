@@ -3,18 +3,6 @@
         "idEmployment": "635e465121139d7ab7841104",
         "dayAtCompnany": [
             {
-                "month": 1,
-                "days": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    8,
-                    9
-                ]
-            },
-            {
                 "month": 2,
                 "days": [
                     1,
@@ -29,36 +17,7 @@
         ]
     },
     {
-        "idEmployment": "635e477321139d7ab7841106",
-        "dayAtCompnany": [
-            {
-                "month": 1,
-                "days": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    8,
-                    9
-                ]
-            },
-            {
-                "month": 2,
-                "days": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    8,
-                    9
-                ]
-            }
-        ]
-    },
-    {
-        "idEmployment": "636293daa322f669b101660c",
+        "idEmployment": "636f5f530cb1293db167e8df",
         "dayAtCompnany": [
             {
                 "month": 1,
