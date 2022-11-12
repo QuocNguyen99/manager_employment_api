@@ -57,7 +57,6 @@ exports.getAllListEmployment = (req, res) => {
 
 exports.getEmploymentTimeKeeping = (req, res) => {
     fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
-        console.log("asdasdsada");
 
         if (err) {
             return res.status(500).json({

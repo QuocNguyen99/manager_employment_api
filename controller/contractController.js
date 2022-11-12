@@ -7,10 +7,11 @@ var ObjectId = require('mongodb').ObjectId;
 exports.creatContract = async (req, res) => {
 
     let contractInDB = await Contract.findOne({ employmentId: req.body.employmentId })
-    if (contractInDB) return res.status(500).json({
-        success: false,
-        message: 'Contract already exists',
-    });
+    if (contractInDB)
+        return res.status(500).json({
+            success: false,
+            message: 'Contract already exists',
+        });
     console.log(req.body.employmentId);
     const contract = new Contract({
         employmentId: req.body.employmentId,
