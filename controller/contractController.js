@@ -62,6 +62,12 @@ exports.getListContract = async (req, res) => {
 
 exports.deleteContract = async (req, res) => {
     console.log(req.body.idContract)
+    if (!req.body.idContract)
+        return res.status(500).json({
+            success: false,
+            message: 'Server error. Please try again.',
+            error: error.message,
+        });
     var removeContract = Contract.findByIdAndRemove(req.body.idContract)
 
     return removeContract.then(() => {

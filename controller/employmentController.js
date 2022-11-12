@@ -1,4 +1,5 @@
 var { Employment } = require('../model/employmentModel');
+var { Contract } = require('../model/contractModel');
 var fs = require('fs')
 var path = require('path');
 var filePath = path.join("./", 'TimeKeeping.json');
@@ -78,8 +79,8 @@ exports.getEmploymentTimeKeeping = (req, res) => {
             })
         }
 
-        // var data = timeKeepingList.find(item => item.idEmployment == req.body._id)
-        if (true) {
+        var data = timeKeepingList.find(item => item.idEmployment == req.body._id)
+        if (data) {
             return res.status(200).json({
                 success: true,
                 message: "get success",
@@ -90,6 +91,50 @@ exports.getEmploymentTimeKeeping = (req, res) => {
                 success: false,
                 message: 'Server error. Please try again.',
                 error: "Can not find data",
+            });
+        }
+    })
+}
+
+exports.getSalary = async (req, res) => {
+    fs.readFile(filePath, { encoding: 'utf-8' }, async function (err, data) {
+        if (!err) {
+
+            var dataJson = JSON.parse(data)
+
+            var dataContract = await Contract.findOne({ employmentId: req.body._id })
+            if (!dataContract) {
+                return
+            }
+            var salary = dataContract.salary
+
+            var salaryDay = parseFloat(salary) / 30
+
+            var timeKeepingEmployment = dataJson.find(item => item.idEmployment == req.body._id)
+            if (!timeKeepingEmployment) {
+                return
+            }
+
+            var list = []
+            timeKeepingEmployment.dayAtCompnany.forEach((element, index) => {
+                var countTime = timeKeepingEmployment.dayAtCompnany[index].days.length
+                list.push({
+                    "month": element.month,
+                    "totalSalary": parseInt((countTime * salaryDay) + parseFloat(dataContract.bonusProject) - parseFloat(dataContract.socialInsurance)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+                })
+            });
+
+            return res.status(200).json({
+                success: true,
+                message: 'Success',
+                data: list
+            });
+
+        } else {
+            res.status(500).json({
+                success: false,
+                message: 'Server error. Please try again.',
+                error: error.message,
             });
         }
     })

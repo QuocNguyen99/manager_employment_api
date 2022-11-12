@@ -136,7 +136,7 @@ exports.sendSalary = async (req, res) => {
                             <h6 style="color: #0085ff">Lương ngày ${parseInt(salaryDay).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} VND</h6>
                             <h6 style="color: #0085ff">Thưởng dự án ${parseInt(dataContract.bonusProject).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} VND</h6>
                             <h6 style="color: #0085ff">Tổng ngày nhận lương ${countTime}</h6>
-                            <h6 style="color: #0085ff">Tổng lương ${parseInt((countTime * salaryDay) + parseFloat(dataContract.bonusProject)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} VND</h6>
+                            <h6 style="color: #0085ff">Tổng lương ${parseInt((countTime * salaryDay) + parseFloat(dataContract.bonusProject) - parseFloat(dataContract.socialInsurance)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} VND</h6>
                         </div>
                     </div>
                 `;
