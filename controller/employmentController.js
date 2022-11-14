@@ -35,6 +35,49 @@ exports.createEmployment = (req, res) => {
         });
 }
 
+exports.updateEmployment = (req, res) => {
+    var editEmployment = Employment.findByIdAndUpdate({ _id: req.body.idEmployment }, req.body.newEmployment, { new: true })
+
+    return editEmployment.then(() => {
+        return res.status(200).json({
+            success: true,
+            message: 'Edit employment successfully',
+        });
+    })
+        .catch((error) => {
+            console.log(error);
+            return res.status(500).json({
+                success: false,
+                message: 'Server error. Please try again.',
+                error: error.message,
+            });
+        });
+}
+
+exports.deleteEmployment = (req, res) => {
+    if (!req.body.idEmployment)
+        return res.status(500).json({
+            success: false,
+            message: 'Server error. Please try again.',
+            error: error.message,
+        });
+
+    var removeEmployment = Employment.findByIdAndRemove(req.body.idEmployment)
+
+    return removeEmployment.then(() => {
+        return res.status(200).json({
+            success: true,
+            message: 'Remove employment successfully',
+        });
+    }).catch((error) => {
+        return res.status(500).json({
+            success: false,
+            message: 'Server error. Please try again.',
+            error: error.message,
+        });
+    })
+}
+
 exports.getAllListEmployment = (req, res) => {
     var list = Employment.find({})
     return list
