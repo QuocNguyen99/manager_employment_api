@@ -6,7 +6,7 @@ route.post('/', createEmployment);
 route.post('/employments', getAllListEmployment);
 route.post('/time', getEmploymentTimeKeeping);
 route.post('/salaray', getSalary);
-route.put('employments', updateEmployment)
-route.delete('employments', deleteEmployment)
+route.put('/employments', updateEmployment)
+route.delete('/employments', deleteEmployment)
 
 module.exports = route;
