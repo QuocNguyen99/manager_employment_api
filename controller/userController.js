@@ -57,7 +57,8 @@ exports.login = async (req, res) => {
         success: true,
         message: 'Success',
         isAdmin: userInDB.roleAdmin,
-        username: userInDB.username
+        username: userInDB.username,
+        idEmployment: userInDB.idEmployment
     });
 
 }
