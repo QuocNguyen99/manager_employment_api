@@ -14,8 +14,8 @@ var sendMail = async (title, subject, content, mailTo, html) => {
         port: 465,
         secure: true,
         auth: {
-            user: 'devnguyen1110@gmail.com', //Tài khoản gmail vừa tạo
-            pass: 'rmvuyjqreuthsihc'
+            user: 'xuhoa1307@gmail.com', //Tài khoản gmail vừa tạo
+            pass: 'tdsjfanlhututiqt'
         },
         tls: {
             // do not fail on invalid certs
